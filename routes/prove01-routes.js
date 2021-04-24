@@ -53,19 +53,11 @@ const requestHandler = (req, res) => {
             const parsedBody = Buffer.concat(body).toString();
             const message = parsedBody.split('=')[1];
             console.log(parsedBody);
-            if (fs.existsSync(path)) {
-                fs.writeFile('users.txt', message, (err) => {
-                    res.statusCode = 302; // redirect
-                    res.setHeader('Location', '/')
-                    return res.end();
-                });
-            } else {
-                fs.appendFile('users.txt', message + '\n', (err) => {
-                    res.statusCode = 302; // redirect
-                    res.setHeader('Location', '/')
-                    return res.end();
-                });
-            }
+            fs.appendFile('users.txt', '\n' + message, (err) => {
+                res.statusCode = 302; // redirect
+                res.setHeader('Location', '/')
+                return res.end();
+            });
         });
     }
     // Default page, or '/'
