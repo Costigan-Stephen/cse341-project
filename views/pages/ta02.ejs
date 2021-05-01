@@ -1,21 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <% include ../includes/header.ejs %>
+    <% include ../includes/header.ejs %>
 </head>
 
 <body>
-  <% include ../includes/nav.ejs %>
-<div class="jumbotron text-center">
-  <div class="container">
-    <h1><%= title %></h1>
-    <p>This is the placeholder for Team Activity 02</p>
-  </div>
-</div>
-<div class="container">
-  
-</div>
+    <% include ../includes/nav.ejs %>
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1>
+                    <%= title %>
+                </h1>
+                <p>This is the placeholder for Team Activity 02</p>
+            </div>
+        </div>
 
-
+        <div class="container">
+            <% if(message){ %>
+                <div>
+                    <h3>
+                        <%= message %>
+                    </h3>
+                </div>
+                <% } %>
+                    <!--
+              Modify the ta02.ejs page to display a form with method POST and action "/ta02/addUser". 
+              Also create a section of the ejs file that will loop through an array of at least 3 names sent over via the render method.
+            -->
+                    <!-- REQUIREMENT 1  /addUser-->
+                    <div>
+                        <form action="/ta02/addUser" method="POST">
+                            <label for="newUser">Add a User</label><br>
+                            <input type="text" name="newUser">
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <!--
+              Create another form, but this time using a new "/removeUser" endpoint that removes a specified name from the array.
+            -->
+                    <!-- REQUIREMENT 2 - /removeUser -->
+                    <div>
+                        <form action="/ta02/removeUser" method="POST">
+                            <label for="removeUser">Remove a User</label><br>
+                            <input type="text" name="removeUser">
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <!-- User list - looped -->
+                    <div>
+                        <h2>Current Users:</h2>
+                        <% for(user of userList){ %>
+                            <p>
+                                <%= user %>
+                            </p>
+                            <% } %>
+                    </div>
+        </div>
 </body>
+
 </html>
