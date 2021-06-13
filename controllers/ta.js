@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 
 
 const JSON_PARSE = require("../models/json");
-const MAX_PER_PAGE = 15;
+const MAX_PER_PAGE = 10;
 const JSON_URL = 'https://byui-cse.github.io/cse341-course/lesson03/items.json';
 
 exports.getTA04 = (req, res, next) => {
@@ -42,7 +42,7 @@ exports.getTA08 = (req, res, next) => {
             }
             var x = 0;
             for (var i = 0; i < Object.keys(object).length; i++) {
-                if (i >= MAX_PER_PAGE * (page - 1) && i <= MAX_PER_PAGE * (page)) {
+                if (i >= MAX_PER_PAGE * (page - 1) && i < MAX_PER_PAGE * (page)) {
                     returnobject[x] = object[i];
                     x++;
                 }
@@ -50,8 +50,6 @@ exports.getTA08 = (req, res, next) => {
                     totalPages++;
                 }
             }
-            console.log(returnobject);
-
             res.render('pages/ta08', {
                 title: 'Team Activity 08',
                 path: '/ta08',

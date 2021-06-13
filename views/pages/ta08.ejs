@@ -25,27 +25,30 @@
 
             </div>
         </div>
-        <div class="container">
-            <% for(let object of objects){ %>
-                <article class="card product-item">
-                    <div class="card__image_prev">
-                        <img src="<%= object.imageUrl %>" alt="<%= object.name %>">
-                    </div>
-                    <header class="card__header">
-                        <h1 class="product__title">
-                            <%= object.name %>
-                        </h1>
-                    </header>
-                    <div class="card__content">
-                        <h2 class="product__price">
-                            <%= object.price %>
-                        </h2>
-                        <p class="product__description product__overflow">
-                            <%= object.description %>
-                        </p>
-                    </div>
-                </article>
-                <% } %>
+        <div class="container productBack">
+            <div class="object-area">
+                <% for(let object of objects){ %>
+                    <article class="card">
+                        <div class="card__image_prev">
+                            <img src="<%= object.imageUrl %>" alt="<%= object.name %>">
+                        </div>
+                        <header class="card__header">
+                            <h1 class="product__title">
+                                <%= object.name %>
+                            </h1>
+                        </header>
+                        <div class="card__content">
+                            <h2 class="product__price">
+                                $
+                                <%= object.price %>
+                            </h2>
+                            <p class="product__description product__overflow">
+                                <%= object.description %>
+                            </p>
+                        </div>
+                    </article>
+                    <% } %>
+            </div>
         </div>
 
 
