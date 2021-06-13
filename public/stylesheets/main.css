@@ -1,43 +1,64 @@
 .jumbotron {
-  background: #0065BD;
-  color: white;
-  padding-bottom: 80px; 
+    background: #0065BD;
+    color: white;
+    padding-bottom: 80px;
 }
 
 .jumbotron .btn-primary {
-  background: #845ac7;
-  border-color: #845ac7; 
+    background: #845ac7;
+    border-color: #845ac7;
 }
 
 .jumbotron .btn-primary:hover {
-  background: #7646c1; 
+    background: #7646c1;
 }
-  
+
 .jumbotron p {
-  color: #d9ccee;
-  max-width: 75%;
-  margin: 1em auto 2em; 
+    color: #d9ccee;
+    max-width: 75%;
+    margin: 1em auto 2em;
 }
-  
-.navbar + .jumbotron {
-  margin-top: -20px; 
+
+.navbar+.jumbotron {
+    margin-top: -20px;
 }
-  
+
+.pagenum,
+.pagenum a {
+    padding: 5px;
+    font-size: 12pt;
+    color: white;
+    margin: 2pt;
+    text-decoration: none;
+    text-align: center;
+}
+
+.pagenum:hover {
+    background-color: white;
+    color: #0065BD;
+    text-decoration: none;
+}
+
+.currentpg {
+    color: yellow
+}
+
 .jumbotron .lang-logo {
-  display: block;
-  background: #B01302;
-  border-radius: 50%;
-  overflow: hidden;
-  width: 100px;
-  height: 100px;
-  margin: auto;
-  border: 2px solid white; 
+    display: block;
+    background: #B01302;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border: 2px solid white;
 }
+
 .jumbotron .lang-logo img {
-  max-width: 100%; 
+    max-width: 100%;
 }
 
 .logo {
-  width: 5rem;
-  height: 5rem;
+    width: 5rem;
+    height: 5rem;
 }

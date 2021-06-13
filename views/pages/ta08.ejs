@@ -12,11 +12,40 @@
                 <h1>
                     <%= title %>
                 </h1>
-                <p>This is the placeholder for Team Activity 08</p>
+                <p>JSON Pagination! It's kinda like magic!</p>
+                <% for(var i = 1; i < totalPages+1; i++){ %>
+                    <% if(i == page) {%>
+                        <a href='/ta05?page=<%= i %>' class="pagenum currentpg">
+                            <% } else { %>
+                                <a href='/ta08?page=<%= i %>' class="pagenum">
+                                    <% } %>
+                                        <%= ('0' + i).slice(-2) %>
+                                </a>
+                                <% } %>
+
             </div>
         </div>
         <div class="container">
-
+            <% for(let object of objects){ %>
+                <article class="card product-item">
+                    <div class="card__image_prev">
+                        <img src="<%= object.imageUrl %>" alt="<%= object.name %>">
+                    </div>
+                    <header class="card__header">
+                        <h1 class="product__title">
+                            <%= object.name %>
+                        </h1>
+                    </header>
+                    <div class="card__content">
+                        <h2 class="product__price">
+                            <%= object.price %>
+                        </h2>
+                        <p class="product__description product__overflow">
+                            <%= object.description %>
+                        </p>
+                    </div>
+                </article>
+                <% } %>
         </div>
 
 
