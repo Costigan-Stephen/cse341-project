@@ -32,11 +32,11 @@
                                 <img src="<%= ImgURL %><%= img %>.png" alt="<%= object.name %>">
                             </div>
                             <header class="card__header">
-                                <h1 class="product__title">
+                                <h3 class="text-center">
                                     #
                                     <%= img %> -
-                                        <%= object.name %>
-                                </h1>
+                                        <%= object.name.toUpperCase() %>
+                                </h3>
                             </header>
                         </article>
                         <% img++; %>
