@@ -230,3 +230,12 @@
     height: 100%;
     padding-bottom: 50px;
 }
+
+.null {
+    color: #004581 !important;
+}
+
+.null:hover {
+    background-color: #0065BD;
+    color: white;
+}

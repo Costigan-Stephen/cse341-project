@@ -18,29 +18,39 @@
                    if(page > 0){ %>
                     <a href='/ta09?page=0' class="pagenum">First</a>
                     <a href='/ta09?page=<%= prev %>' class="pagenum">Prev</a>
-                    <% } %>
-                        <a href='/ta09?page=<%= next %>' class="pagenum">Next</a>
+                    <% } else {%>
+                        <span class="pagenum null">First</span>
+                        <span class="pagenum null">Prev</span>
+                        <%} %>
+                            <a href='/ta09?page=<%= next %>' class="pagenum">Next</a>
+                            <% if(page != 89){ %>
+                                <a href='/ta09?page=89' class="pagenum">Last</a>
+                                <% } else {%>
+                                    <span class="pagenum null">Last</span>
+                                    <%} %>
 
             </div>
         </div>
         <div class="container productBack">
             <div class="object-area">
-                <% var img = (page * 10) + 1; %>
-                    <% for(let object of objects){ %>
-                        <article class="card">
-                            <div class="card__image_prev">
-                                <img src="<%= ImgURL %><%= img %>.png" alt="<%= object.name %>">
-                            </div>
-                            <header class="card__header">
-                                <h3 class="text-center">
-                                    #
-                                    <%= img %> -
-                                        <%= object.name.toUpperCase() %>
-                                </h3>
-                            </header>
-                        </article>
-                        <% img++; %>
-                            <% } %>
+                <% var img = (page * 10) + 1;  
+                   for(let object of objects){ 
+                      if(img < 899) { %>
+                    <article class="card">
+                        <div class="card__image_prev">
+                            <img src="<%= ImgURL %><%= img %>.png" alt="<%= object.name %>">
+                        </div>
+                        <header class="card__header">
+                            <h3 class="text-center">
+                                #
+                                <%= img %> -
+                                    <%= object.name.toUpperCase() %>
+                            </h3>
+                        </header>
+                    </article>
+                    <% } 
+                        img++; 
+                    } %>
             </div>
         </div>
 

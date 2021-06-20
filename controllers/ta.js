@@ -68,8 +68,11 @@ exports.getTA09 = (req, res, next) => {
     let settings = { method: "Get" };
     if (!page) {
         page = 0;
+        offset = 0;
+    } else {
+        offset = page * 10;
     }
-    const POKE_URL = 'https://pokeapi.co/api/v2/pokemon?offset=' + page + '&limit=10';
+    const POKE_URL = 'https://pokeapi.co/api/v2/pokemon?offset=' + offset + '&limit=10';
     fetch(POKE_URL, settings)
         .then(res => res.json())
         .then((json) => {
