@@ -22,10 +22,12 @@
                         <span class="pagenum null">First</span>
                         <span class="pagenum null">Prev</span>
                         <%} %>
-                            <a href='/ta09?page=<%= next %>' class="pagenum">Next</a>
+
                             <% if(page != 89){ %>
+                                <a href='/ta09?page=<%= next %>' class="pagenum">Next</a>
                                 <a href='/ta09?page=89' class="pagenum">Last</a>
                                 <% } else {%>
+                                    <span class="pagenum null">Next</span>
                                     <span class="pagenum null">Last</span>
                                     <%} %>
 
