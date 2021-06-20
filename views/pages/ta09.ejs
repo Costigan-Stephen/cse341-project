@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../includes/header.ejs %>
+</head>
+
+<body>
+    <% include ../includes/nav.ejs %>
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1>
+                    <%= title %>
+                </h1>
+                <p>Gotta Catch Em All!</p>
+                <% var prev = Number(page) - Number(1);
+                   var next = Number(page) + Number(1);
+                   if(page > 0){ %>
+                    <a href='/ta09?page=0' class="pagenum">First</a>
+                    <a href='/ta09?page=<%= prev %>' class="pagenum">Prev</a>
+                    <% } %>
+                        <a href='/ta09?page=<%= next %>' class="pagenum">Next</a>
+
+            </div>
+        </div>
+        <div class="container productBack">
+            <div class="object-area">
+                <% var img = (page * 10) + 1; %>
+                    <% for(let object of objects){ %>
+                        <article class="card">
+                            <div class="card__image_prev">
+                                <img src="<%= ImgURL %><%= img %>.png" alt="<%= object.name %>">
+                            </div>
+                            <header class="card__header">
+                                <h1 class="product__title">
+                                    #
+                                    <%= img %> -
+                                        <%= object.name %>
+                                </h1>
+                            </header>
+                        </article>
+                        <% img++; %>
+                            <% } %>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
