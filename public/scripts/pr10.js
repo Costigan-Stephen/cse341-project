@@ -46,7 +46,11 @@ const putLocal = () => {
         div_img.setAttribute("class", "card__image_prev");
 
         const img = document.createElement('img');
-        img.setAttribute("src", avenger.image);
+        if (avenger.image) {
+            img.setAttribute("src", avenger.image);
+        } else {
+            img.setAttribute("src", "/images/heroes/none.jpg");
+        }
         img.setAttribute("alt", avenger.name);
 
         div_img.appendChild(img);
