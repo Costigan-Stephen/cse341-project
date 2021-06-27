@@ -1,8 +1,15 @@
-const submitName = () => {
+const submitName = (sub = 0) => {
     const name = document.getElementById('name').value;
     const alias = document.getElementById('alias').value;
     const url = document.getElementById('url').value;
+    if (sub) {
+        if (!name || !alias) {
+            document.getElementById("error").innerHTML = "<span style='color: yellow;'>Please enter all required fields</span>";
+            return;
+        }
 
+        const hero = { "name": name, "alias": alias, "image": url };
+    }
     const hero = { "name": name, "alias": alias, "image": url };
     var existingEntries = new Array();
     fetch('/prove/10/fetch')
@@ -13,9 +20,16 @@ const submitName = () => {
             if (!existingEntries)
                 existingEntries = data;
 
-            var i = existingEntries.avengers.length;
-            if (name) {
-                existingEntries.avengers[i] = hero;
+            if (matchingName(existingEntries.avengers, name)) {
+                document.getElementById("error").innerHTML = "<span style='color: yellow;'>Name already exists in system</span>";
+                return;
+            }
+
+            if (sub == 2) {
+                var i = existingEntries.avengers.length;
+                if (name) {
+                    existingEntries.avengers[i] = hero;
+                }
             }
             localStorage.setItem("heroes", JSON.stringify(existingEntries));
             putLocal();
@@ -33,8 +47,6 @@ submitName();
 const putLocal = () => {
     const nameList = document.getElementById('nameList')
     var data = JSON.parse(localStorage.getItem("heroes"));
-
-    console.log(data);
 
     while (nameList.firstChild) nameList.firstChild.remove()
 
@@ -62,7 +74,10 @@ const putLocal = () => {
         const h2 = document.createElement('h2');
         h2.appendChild(document.createTextNode(avenger.name))
         const h3 = document.createElement('h3');
-        h3.appendChild(document.createTextNode("AKA " + avenger.alias))
+        if (avenger.alias) {
+            h3.appendChild(document.createTextNode("AKA " + avenger.alias))
+        }
+
         div_card.appendChild(h2);
         div_card.appendChild(h3);
 
@@ -70,6 +85,21 @@ const putLocal = () => {
 
         nameList.appendChild(article)
     }
+}
+
+const matchingName = (JSON, nameValue) => {
+    var hasMatch = false;
+
+    for (var index = 0; index < JSON.length; ++index) {
+
+        var hero = JSON[index];
+
+        if (hero.name == nameValue) {
+            hasMatch = true;
+            break;
+        }
+    }
+    return hasMatch;
 }
 
 /*
