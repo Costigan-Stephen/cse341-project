@@ -4,61 +4,70 @@ const submitName = () => {
     const url = document.getElementById('url').value;
 
     const hero = { "name": name, "alias": alias, "image": url };
-
-    console.log(hero);
-
-    const uri = '/prove/10';
-
-    fetch(uri, {
-            method: "POST", // Send a POST request
-            headers: {
-                // Set the Content-Type, since our server expects JSON
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify({ "name": name, "alias": alias, "image": url }),
-        })
-        .then(res => {
-            // Clear the input
-            addToList();
-            document.getElementById('name').value = '';
-            document.getElementById('alias').value = '';
-            document.getElementById('url').value = '';
-            console.log("response: ", res);
-        })
-        .catch(err => {
-            // Clear the input
-            document.getElementById('name').value = '';
-            document.getElementById('alias').value = '';
-            document.getElementById('url').value = '';
-            console.error("error: ", err);
-        });
-}
-
-const addToList = () => {
-    const nameList = document.getElementById('nameList')
-
+    var existingEntries = new Array();
     fetch('/prove/10/fetch')
         .then(res => res.json())
         .then(data => {
-            // Clear the list first
-            console.log(data)
-                //     while (formData.firstChild) nameList.firstChild.remove()
 
-            // Repopulate the list
-            for (const avenger of data.avengers) {
-                const article = document.createElement('article')
-                article.appendChild(document.createTextNode(avenger.name))
-                nameList.appendChild(article)
+            existingEntries = JSON.parse(localStorage.getItem("heroes"));
+            if (!existingEntries)
+                existingEntries = data;
+
+            var i = existingEntries.avengers.length;
+            if (name) {
+                existingEntries.avengers[i] = hero;
             }
+            localStorage.setItem("heroes", JSON.stringify(existingEntries));
+            putLocal();
+            document.getElementById('name').value = '';
+            document.getElementById('alias').value = '';
+            document.getElementById('url').value = '';
         })
         .catch(err => {
-            console.log('Error:' + err)
-        })
+            console.error("error: ", err);
+        });
+
+}
+submitName();
+
+const putLocal = () => {
+    const nameList = document.getElementById('nameList')
+    var data = JSON.parse(localStorage.getItem("heroes"));
+
+    console.log(data);
+
+    while (nameList.firstChild) nameList.firstChild.remove()
+
+    for (const avenger of data.avengers) {
+        const article = document.createElement('article');
+        article.setAttribute("class", "card");
+
+        const div_img = document.createElement('div');
+        div_img.setAttribute("class", "card__image_prev");
+
+        const img = document.createElement('img');
+        img.setAttribute("src", avenger.image);
+        img.setAttribute("alt", avenger.name);
+
+        div_img.appendChild(img);
+        article.appendChild(div_img);
+
+        const div_card = document.createElement('div');
+        div_card.setAttribute("class", "card__header");
+
+        const h2 = document.createElement('h2');
+        h2.appendChild(document.createTextNode(avenger.name))
+        const h3 = document.createElement('h3');
+        h3.appendChild(document.createTextNode("AKA " + avenger.alias))
+        div_card.appendChild(h2);
+        div_card.appendChild(h3);
+
+        article.appendChild(div_card);
+
+        nameList.appendChild(article)
+    }
 }
 
-
-
-addToList();
 /*
 <article class="card">
     <div class="card__image_prev">
@@ -66,11 +75,11 @@ addToList();
     </div>
     <div class="card__header">
         <h2>
-        <%= object.name %>
+            <%= object.name %>
         </h2>
         <h3>
-        AKA
-       </h3>
+            AKA <%= object.alias %>
+        </h3>
     </div>
 </article>
 */
