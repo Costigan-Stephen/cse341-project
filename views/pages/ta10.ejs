@@ -13,16 +13,20 @@
                     <%= title %>
                 </h1>
                 <p>Add your hero below, or make up a new one!</p>
-                <form class="product-form" action="/prove/10" enctype="multipart/form-data" method="POST">
-                    <label for="name">Name</label><br/>
-                    <input type="text" name="name" id="name" style="color: black;"><br/>
-                    <label for="alias">Alias</label><br/>
-                    <input type="text" name="alias" id="alias" style="color: black;"><br/>
-                    <label for="file">Image URL</label>
-                    <input type="text" name="file" id="file" style="color: black;">
-                    <br/><br/><br/>
-                    <button type="submit" style="padding: 10px 40px; color: black; width: 100%">Add Hero!</button>
-                </form>
+                <!-- <form class="product-form" action="/prove/10" method="POST"> -->
+                <div class="product-form">
+                    <div>
+                        <label for="name">Name</label><br/>
+                        <input type="text" name="name" id="name" style="color: black;"><br/>
+                        <label for="alias">Alias</label><br/>
+                        <input type="text" name="alias" id="alias" style="color: black;"><br/>
+                        <label for="url">Image URL</label>
+                        <input type="text" name="url" id="url" style="color: black;">
+                    </div>
+                    <br/>
+                    <button type="submit" style="padding: 10px 40px; color: black; width: 100%" onclick="submitName()">Add Hero!</button>
+                </div>
+                <!-- </form> -->
                 <br/><br/>
                 <% var prev = Number(page) - Number(1);
                    var next = Number(page) + Number(1);
@@ -44,7 +48,7 @@
             </div>
         </div>
         <div class="container productBack">
-            <div class="object-area">
+            <div class="object-area" id="nameList">
                 <% for(let object of objects){  %>
                     <article class="card">
                         <div class="card__image_prev">
@@ -68,7 +72,7 @@
             </div>
         </div>
 
-
+        <script src="../scripts/pr10.js"></script>
 </body>
 
 </html>

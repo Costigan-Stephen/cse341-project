@@ -29,7 +29,7 @@ const prove02Routes = require('./routes/prove02-routes');
 app.use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
-    .use(bodyParser({ extended: false })) // For parsing the body of a POST
+    .use(bodyParser.urlencoded({ extended: true })) // For parsing the body of a POST
     .use('/ta01', ta01Routes)
     .use('/ta02', ta02Routes)
     .use('/ta03', ta03Routes)
