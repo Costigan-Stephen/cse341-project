@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
     res.render('pages/ta05', {
         title: 'Team Activity 05',
-        path: '/ta05'
+        path: '/prove/05'
     });
 });
 

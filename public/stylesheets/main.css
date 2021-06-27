@@ -99,6 +99,9 @@
 .card__image img,
 .card__image_prev img {
     width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: top;
 }
 
 .card__image_prev img {

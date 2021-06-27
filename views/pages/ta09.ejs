@@ -16,16 +16,16 @@
                 <% var prev = Number(page) - Number(1);
                    var next = Number(page) + Number(1);
                    if(page > 0){ %>
-                    <a href='/ta09?page=0' class="pagenum">First</a>
-                    <a href='/ta09?page=<%= prev %>' class="pagenum">Prev</a>
+                    <a href='/prove/09?page=0' class="pagenum">First</a>
+                    <a href='/prove/09?page=<%= prev %>' class="pagenum">Prev</a>
                     <% } else {%>
                         <span class="pagenum null">First</span>
                         <span class="pagenum null">Prev</span>
                         <%} %>
 
                             <% if(page != 89){ %>
-                                <a href='/ta09?page=<%= next %>' class="pagenum">Next</a>
-                                <a href='/ta09?page=89' class="pagenum">Last</a>
+                                <a href='/prove/09?page=<%= next %>' class="pagenum">Next</a>
+                                <a href='/prove/09?page=89' class="pagenum">Last</a>
                                 <% } else {%>
                                     <span class="pagenum null">Next</span>
                                     <span class="pagenum null">Last</span>

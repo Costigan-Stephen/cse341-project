@@ -1,19 +1,20 @@
-//TA05 PLACEHOLDER
+//TA PLACEHOLDER
 const express = require('express');
 const router = express.Router();
+const fs = require('fs'); // File system for TA01
 const fetch = require('node-fetch');
 
-
+const avengeryData = require('../data/ta10_data.json');
 const JSON_PARSE = require("../models/json");
 const MAX_PER_PAGE = 10;
 const JSON_URL = 'https://byui-cse.github.io/cse341-course/lesson03/items.json';
-const POKE_IMG = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'
+const POKE_IMG = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
 
 
 exports.getTA04 = (req, res, next) => {
     res.render('pages/ta04', {
         title: 'Team Activity 04',
-        path: '/ta04', // For pug, EJS 
+        path: '/prove/04', // For pug, EJS 
         activeTA04: true, // For HBS
         contentCSS: true, // For HBS
     });
@@ -22,12 +23,15 @@ exports.getTA04 = (req, res, next) => {
 exports.getTA05 = (req, res, next) => {
     res.render('pages/ta05', {
         title: 'Prove Activity 05',
-        path: '/ta05'
+        path: '/prove/05'
     });
 };
 
 exports.getTA08 = (req, res, next) => {
     var page = req.query.page;
+    if (!page) {
+        page = 1;
+    }
     var returnobject = [];
     var object = [];
     var totalPages = 0;
@@ -52,7 +56,7 @@ exports.getTA08 = (req, res, next) => {
             }
             res.render('pages/ta08', {
                 title: 'Prove Activity 08',
-                path: '/ta08',
+                path: '/prove/08',
                 page: page,
                 totalPages: totalPages,
                 objects: returnobject,
@@ -79,7 +83,7 @@ exports.getTA09 = (req, res, next) => {
             object = JSON.parse(JSON.stringify(json));
             res.render('pages/ta09', {
                 title: 'Prove Activity 09',
-                path: '/ta09',
+                path: '/prove/09',
                 page: page,
                 objects: object.results,
                 ImgURL: POKE_IMG,
@@ -89,4 +93,24 @@ exports.getTA09 = (req, res, next) => {
             console.log(err);
         });
 
+}
+
+exports.getTA10 = (req, res, next) => {
+    var page = req.query.page;
+    if (!page) {
+        page = 0;
+    }
+    var object = avengeryData;
+    var pageLast = (object.length / 10);
+    if (!pageLast)
+        pageLast = 0;
+
+    res.render('pages/ta10', {
+        title: 'Prove Activity 10',
+        path: '/prove/10',
+        page: page,
+        pageLast: pageLast,
+        objects: object.avengers,
+        domain: req.protocol + "://" + req.get('host')
+    });
 }
