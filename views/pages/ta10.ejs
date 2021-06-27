@@ -13,17 +13,14 @@
                     <%= title %>
                 </h1>
                 <p>Add your hero below, or make up a new one!</p>
-                <form class="product-form" action="/prove/10/post" method="POST">
-                    <div>
-                        <label for="name">Name</label><br/>
-                        <input type="text" name="name" id="name" style="color: black;"><br/>
-                        <label for="alias">Alias</label><br/>
-                        <input type="text" name="alias" id="alias" style="color: black;"><br/>
-                        <br/>
-                        <label for="image">Please Select Your Picture</label>
-                        <input type="file" name="image">
-                    </div>
-                    <br/>
+                <form class="product-form" action="/prove/10" enctype="multipart/form-data" method="POST">
+                    <label for="name">Name</label><br/>
+                    <input type="text" name="name" id="name" style="color: black;"><br/>
+                    <label for="alias">Alias</label><br/>
+                    <input type="text" name="alias" id="alias" style="color: black;"><br/>
+                    <label for="file">Image URL</label>
+                    <input type="text" name="file" id="file" style="color: black;">
+                    <br/><br/><br/>
                     <button type="submit" style="padding: 10px 40px; color: black; width: 100%">Add Hero!</button>
                 </form>
                 <br/><br/>
@@ -51,7 +48,11 @@
                 <% for(let object of objects){  %>
                     <article class="card">
                         <div class="card__image_prev">
-                            <img src="<%= domain %><%= object.image %>" alt="<%= object.name %>">
+                            <% if(object.image) { %>
+                                <img src="<%= domain %><%= object.image %>" alt="<%= object.name %>">
+                                <% } else { %>
+                                    <img src="/images/heroes/none.jpg" alt="<%= object.name %>">
+                                    <% }  %>
                         </div>
                         <div class="card__header">
                             <h2>

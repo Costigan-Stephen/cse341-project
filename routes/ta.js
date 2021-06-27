@@ -14,7 +14,7 @@ router.get('/prove/09', taController.getTA09);
 
 router.get('/prove/10', taController.getTA10);
 
-router.post('/prove/10/post', svController.submitName);
-router.post('/prove/10/postData', svController.post);
+router.post('/prove/10', svController.submitName);
+router.post('/prove/10/post', svController.post);
 
 module.exports = router;
