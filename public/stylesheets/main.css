@@ -110,6 +110,11 @@
     height: 300px;
 }
 
+.pkmn img {
+    height: 400px;
+    object-fit: fill;
+}
+
 .card__actions {
     padding: 1rem;
     text-align: center;

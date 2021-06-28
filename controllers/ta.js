@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser')
+const fetch = require('node-fetch');
 
 const avengeryData = require('../data/ta10_data.json');
 const JSON_PARSE = require("../models/json");
