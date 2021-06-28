@@ -25,7 +25,7 @@ const submitName = (sub = 0) => {
                 return;
             }
 
-            if (sub == 2) {
+            if (sub == 1) {
                 var i = existingEntries.avengers.length;
                 if (name) {
                     existingEntries.avengers[i] = hero;
