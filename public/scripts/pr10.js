@@ -16,7 +16,7 @@ const submitName = (sub = 0) => {
         .then(res => res.json())
         .then(data => {
 
-            existingEntries = JSON.parse(localStorage.getItem("heroes"));
+            existingEntries = JSON.parse(sessionStorage.getItem("heroes"));
             if (!existingEntries)
                 existingEntries = data;
 
@@ -31,7 +31,7 @@ const submitName = (sub = 0) => {
                     existingEntries.avengers[i] = hero;
                 }
             }
-            localStorage.setItem("heroes", JSON.stringify(existingEntries));
+            sessionStorage.setItem("heroes", JSON.stringify(existingEntries));
             putLocal();
             document.getElementById('name').value = '';
             document.getElementById('alias').value = '';
@@ -46,7 +46,7 @@ submitName();
 
 const putLocal = () => {
     const nameList = document.getElementById('nameList')
-    var data = JSON.parse(localStorage.getItem("heroes"));
+    var data = JSON.parse(sessionStorage.getItem("heroes"));
 
     while (nameList.firstChild) nameList.firstChild.remove()
 
