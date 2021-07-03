@@ -25,7 +25,7 @@
                         <input type="text" name="url" id="url" style="color: black;">
                     </div>
                     <br/>
-                    <button type="submit" style="padding: 10px 40px; color: black; width: 100%" onclick="submitName(1)">Add Hero!</button>
+                    <button type="button" style="padding: 10px 40px; color: black; width: 100%" onclick="submitName(1)">Add Hero!</button>
                 </div>
                 <!-- </form> -->
                 <br/><br/>
@@ -50,14 +50,19 @@
         </div>
         <div class="container productBack">
             <div class="object-area" id="nameList">
-                <% for(let object of objects){  %>
+                <% for(let object of objects){  
+                    if(object.name){%>
                     <article class="card">
-                        <div class="card__image_hero">
-                            <% if(object.image) { %>
-                                <img src="<%= domain %><%= object.image %>" alt="<%= object.name %>">
+                        <div class="card__image_prev">
+                            <% if(object.image) {  
+                                var res = object.image.substring(0, 4); 
+                                if(res == "http") {%>
+                                <img src="<%= object.image %>" alt="<%= object.name %>">
                                 <% } else { %>
-                                    <img src="/images/heroes/none.jpg" alt="<%= object.name %>">
-                                    <% }  %>
+                                    <img src="<%= domain %><%= object.image %>" alt="<%= object.name %>">
+                                    <% } } else { %>
+                                        <img src="/images/heroes/none.jpg" alt="<%= object.name %>">
+                                        <% }  %>
                         </div>
                         <div class="card__header">
                             <h2>
@@ -69,7 +74,7 @@
                             </h3>
                         </div>
                     </article>
-                    <% } %>
+                    <% }} %>
             </div>
         </div>
 

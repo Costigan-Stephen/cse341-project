@@ -1,8 +1,8 @@
 //TA PLACEHOLDER
 const express = require('express');
 const router = express.Router();
-const bodyParser = require('body-parser')
 const fetch = require('node-fetch');
+const fs = require('fs'); // File system for TA01
 
 const avengeryData = require('../data/ta10_data.json');
 const JSON_PARSE = require("../models/json");
@@ -120,11 +120,22 @@ exports.postTA10 = (req, res, next) => {
     console.log(req.name);
 
     if (req.body.name !== undefined) {
-        const newName = req.body.name
+        const name = req.body.name;
+        const url = req.body.url;
+        const alias = req.body.alias;
 
         // Make our submissions somewhat unique.
-        if (!dummyData.avengers.some(a => a.name === newName)) {
-            dummyData.avengers.push({ name: newName }) // Push new object into the dummyData
+        if (!avengeryData.avengers.some(a => a.name === name)) {
+            avengeryData.avengers.push({ name: name, alias: alias, image: url }) // Push new object into the avengeryData
+
+            fs.writeFile('data/ta10_data.json',
+                JSON.stringify(avengeryData),
+                'utf8',
+                function(err) {
+                    if (err) throw err;
+                    console.log('File updated');
+                });
+
             res.sendStatus(200)
         }
     } else {
