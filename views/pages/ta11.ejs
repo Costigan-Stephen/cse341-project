@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../includes/header.ejs %>
+</head>
+
+<body>
+    <% include ../includes/nav.ejs %>
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1>
+                    <%= title %>
+                </h1>
+                <p>Add your hero below, or make up a new one! If No image URL is entered, it will be represented with a default image</p>
+                <p id="error"></p>
+                <!-- <form class="product-form" action="/prove/10" method="POST"> -->
+                <div class="product-form">
+                    <div>
+                        <label for="name">Name</label><br/>
+                        <input type="text" name="name" id="name" style="color: black;"><br/>
+                        <label for="alias">Alias</label><br/>
+                        <input type="text" name="alias" id="alias" style="color: black;"><br/>
+                        <label for="url">Image URL</label>
+                        <input type="text" name="url" id="url" style="color: black;">
+                    </div>
+                    <br/>
+                    <button type="button" style="padding: 10px 40px; color: black; width: 100%" onclick="submitName(1)">Add Hero!</button>
+                </div>
+                <!-- </form> -->
+                <br/><br/>
+                <% var prev = Number(page) - Number(1);
+                   var next = Number(page) + Number(1);
+                   if(page > 0){ %>
+                    <a href='/prove/10?page=0' class="pagenum">First</a>
+                    <a href='/prove/10?page=<%= prev %>' class="pagenum">Prev</a>
+                    <% } else {%>
+                        <span class="pagenum null">First</span>
+                        <span class="pagenum null">Prev</span>
+                        <%} %>
+
+                            <% if(page != pageLast){ %>
+                                <a href='/prove/10?page=<%= next %>' class="pagenum">Next</a>
+                                <a href='/prove/10?page=<%= pageLast %>' class="pagenum">Last</a>
+                                <% } else {%>
+                                    <span class="pagenum null">Next</span>
+                                    <span class="pagenum null">Last</span>
+                                    <%} %>
+            </div>
+        </div>
+        <div class="container productBack">
+            <div class="object-area" id="nameList">
+                <% for(let object of objects){  
+                    if(object.name){%>
+                    <article class="card">
+                        <div class="card__image_prev">
+                            <% if(object.image) {  
+                                var res = object.image.substring(0, 4); 
+                                if(res == "http") {%>
+                                <img src="<%= object.image %>" alt="<%= object.name %>">
+                                <% } else { %>
+                                    <img src="<%= domain %><%= object.image %>" alt="<%= object.name %>">
+                                    <% } } else { %>
+                                        <img src="/images/heroes/none.jpg" alt="<%= object.name %>">
+                                        <% }  %>
+                        </div>
+                        <div class="card__header">
+                            <h2>
+                                <%= object.name %>
+                            </h2>
+                            <h3>
+                                AKA
+                                <%= object.alias %>
+                            </h3>
+                        </div>
+                    </article>
+                    <% }} %>
+            </div>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="../scripts/pr10.js"></script>
+</body>
+
+</html>

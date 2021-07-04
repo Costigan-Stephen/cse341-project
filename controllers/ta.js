@@ -143,6 +143,55 @@ exports.postTA10 = (req, res, next) => {
     }
 };
 
+
+exports.getTA11 = (req, res, next) => {
+    var page = req.query.page;
+    if (!page) {
+        page = 0;
+    }
+    var object = avengeryData;
+    var pageLast = (object.length / 10);
+    if (!pageLast)
+        pageLast = 0;
+
+    res.render('pages/ta11', {
+        title: 'Prove Activity 11',
+        path: '/prove/11',
+        page: page,
+        pageLast: pageLast,
+        objects: object.avengers,
+        domain: req.protocol + "://" + req.get('host')
+    });
+};
+
+exports.postTA11 = (req, res, next) => {
+
+    console.log(req.name);
+
+    if (req.body.name !== undefined) {
+        const name = req.body.name;
+        const url = req.body.url;
+        const alias = req.body.alias;
+
+        // Make our submissions somewhat unique.
+        if (!avengeryData.avengers.some(a => a.name === name)) {
+            avengeryData.avengers.push({ name: name, alias: alias, image: url }) // Push new object into the avengeryData
+
+            fs.writeFile('data/ta10_data.json',
+                JSON.stringify(avengeryData),
+                'utf8',
+                function(err) {
+                    if (err) throw err;
+                    console.log('File updated');
+                });
+
+            res.sendStatus(200)
+        }
+    } else {
+        res.sendStatus(400) // Bad request error code
+    }
+};
+
 exports.fetch = (req, res, next) => {
     res.json(avengeryData);
 }

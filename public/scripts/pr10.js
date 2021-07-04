@@ -1,3 +1,9 @@
+const socket = io('/');
+
+socket.on('hero', () => {
+    putLocal();
+});
+
 const submitName = (sub = 0) => {
     const name = document.getElementById('name').value;
     const alias = document.getElementById('alias').value;
@@ -65,6 +71,9 @@ const postData = () => {
 
             // Repopulate the list with our new name added
             putLocal();
+
+            // Broadcast a change to the database
+            socket.emit('hero');
         })
         .catch((err) => {
             // Clear the input

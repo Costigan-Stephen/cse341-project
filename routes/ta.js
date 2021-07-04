@@ -16,6 +16,10 @@ router.get('/prove/10', taController.getTA10);
 
 router.post('/prove/10', taController.postTA10);
 
+router.get('/prove/11', taController.getTA11);
+
+router.post('/prove/11', taController.postTA11);
+
 router.get('/prove/10/fetch', taController.fetch);
 
 module.exports = router;
