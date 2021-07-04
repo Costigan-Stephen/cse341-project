@@ -1,6 +1,6 @@
 const socket = io('/');
 
-socket.on('hero', () => {
+socket.on('update-list', () => {
     putLocal();
 });
 
@@ -32,11 +32,13 @@ const submitName = (sub = 0) => {
                 if (name) {
                     existingEntries.avengers[i] = hero;
                 }
-            }
-            // sessionStorage.setItem("heroes", JSON.stringify(existingEntries));
-            if (sub == 1) {
                 postData();
+                // Broadcast a change to the database
+                buildEntry(hero);
+                socket.emit('hero');
             }
+
+            putLocal();
             document.getElementById('name').value = '';
             document.getElementById('alias').value = '';
             document.getElementById('url').value = '';
@@ -53,7 +55,7 @@ const postData = () => {
     const name = document.getElementById('name').value;
     const alias = document.getElementById('alias').value;
     const url = document.getElementById('url').value;
-    const hero = { "name": name, "alias": alias, "url": url };
+    const hero = { "name": name, "alias": alias, "image": url };
 
     fetch('/prove/10', {
             method: 'POST', // Send a POST request
@@ -70,10 +72,6 @@ const postData = () => {
             document.getElementById('url').value = '';
 
             // Repopulate the list with our new name added
-            putLocal();
-
-            // Broadcast a change to the database
-            socket.emit('hero');
         })
         .catch((err) => {
             // Clear the input
@@ -99,39 +97,7 @@ const putLocal = () => {
             for (const avenger of data.avengers) {
 
                 if (avenger.name != NULL) {
-                    const article = document.createElement('article');
-                    article.setAttribute("class", "card");
-
-                    const div_img = document.createElement('div');
-                    div_img.setAttribute("class", "card__image_prev");
-
-                    const img = document.createElement('img');
-                    if (avenger.image) {
-                        img.setAttribute("src", avenger.image);
-                    } else {
-                        img.setAttribute("src", "/images/heroes/none.jpg");
-                    }
-                    img.setAttribute("alt", avenger.name);
-
-                    div_img.appendChild(img);
-                    article.appendChild(div_img);
-
-                    const div_card = document.createElement('div');
-                    div_card.setAttribute("class", "card__header");
-
-                    const h2 = document.createElement('h2');
-                    h2.appendChild(document.createTextNode(avenger.name))
-                    const h3 = document.createElement('h3');
-                    if (avenger.alias) {
-                        h3.appendChild(document.createTextNode("AKA " + avenger.alias))
-                    }
-
-                    div_card.appendChild(h2);
-                    div_card.appendChild(h3);
-
-                    article.appendChild(div_card);
-
-                    nameList.appendChild(article)
+                    buildEntry(avenger);
                 }
             }
         })
@@ -153,6 +119,43 @@ const matchingName = (JSON, nameValue) => {
         }
     }
     return hasMatch;
+}
+
+const buildEntry = (avenger) => {
+    const nameList = document.getElementById('nameList')
+    const article = document.createElement('article');
+    article.setAttribute("class", "card");
+
+    const div_img = document.createElement('div');
+    div_img.setAttribute("class", "card__image_prev");
+
+    const img = document.createElement('img');
+    if (avenger.image) {
+        img.setAttribute("src", avenger.image);
+    } else {
+        img.setAttribute("src", "/images/heroes/none.jpg");
+    }
+    img.setAttribute("alt", avenger.name);
+
+    div_img.appendChild(img);
+    article.appendChild(div_img);
+
+    const div_card = document.createElement('div');
+    div_card.setAttribute("class", "card__header");
+
+    const h2 = document.createElement('h2');
+    h2.appendChild(document.createTextNode(avenger.name))
+    const h3 = document.createElement('h3');
+    if (avenger.alias) {
+        h3.appendChild(document.createTextNode("AKA " + avenger.alias))
+    }
+
+    div_card.appendChild(h2);
+    div_card.appendChild(h3);
+
+    article.appendChild(div_card);
+
+    nameList.appendChild(article)
 }
 
 /*

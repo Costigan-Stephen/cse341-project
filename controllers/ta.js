@@ -170,12 +170,12 @@ exports.postTA11 = (req, res, next) => {
 
     if (req.body.name !== undefined) {
         const name = req.body.name;
-        const url = req.body.url;
+        const image = req.body.image;
         const alias = req.body.alias;
 
         // Make our submissions somewhat unique.
         if (!avengeryData.avengers.some(a => a.name === name)) {
-            avengeryData.avengers.push({ name: name, alias: alias, image: url }) // Push new object into the avengeryData
+            avengeryData.avengers.push({ name: name, alias: alias, image: image }) // Push new object into the avengeryData
 
             fs.writeFile('data/ta10_data.json',
                 JSON.stringify(avengeryData),

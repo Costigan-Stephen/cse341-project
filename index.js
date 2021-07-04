@@ -52,9 +52,8 @@ const server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-    console.log('Client connected');
-
     socket.on('hero', () => {
+        console.log('update posted');
         socket.broadcast.emit('update-list');
     });
 });
